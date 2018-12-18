@@ -19,6 +19,7 @@ class Portfolio(object):
         self.positions = {}
         self.closed_positions = []
         self.realised_pnl = 0
+        print("INIT EQU: " + str(self.equity))
 
     def _update_portfolio(self):
         """
@@ -42,6 +43,8 @@ class Portfolio(object):
             self.equity += (
                 pt.market_value - pt.cost_basis + pt.realised_pnl
             )
+
+            #print("EQUITY: "+ str(self.equity))
 
     def _add_position(
         self, action, ticker,

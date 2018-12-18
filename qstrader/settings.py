@@ -6,7 +6,7 @@ from munch import munchify, unmunchify
 
 
 ENV_VAR_ROOT = 'QSTRADER'
-DEFAULT_CONFIG_FILENAME = '~/qstrader.yml'
+DEFAULT_CONFIG_FILENAME = '~/Documents/GitHub/qstrader/qstrader/qstrader.yml'
 
 
 def from_env(key, default_value=None, root=ENV_VAR_ROOT):
@@ -27,8 +27,8 @@ def from_env(key, default_value=None, root=ENV_VAR_ROOT):
 
 
 DEFAULT = munchify({
-    "CSV_DATA_DIR": from_env("CSV_DATA_DIR", "~/data"),
-    "OUTPUT_DIR": from_env("OUTPUT_DIR", "~/out")
+    "CSV_DATA_DIR": from_env("CSV_DATA_DIR", "~/Documents/GitHub/qstrader/data"),
+    "OUTPUT_DIR": from_env("OUTPUT_DIR", "~/Documents/GitHub/qstrader/out")
 })
 
 

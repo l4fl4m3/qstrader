@@ -24,7 +24,7 @@ class AbstractStrategy(object):
         raise NotImplementedError("Should implement calculate_signals()")
 
 
-class Strategies(AbstractStrategy):
+class Strategies(AbstractStrategy): 
     """
     Strategies is a collection of strategy
     """
@@ -33,4 +33,4 @@ class Strategies(AbstractStrategy):
 
     def calculate_signals(self, event):
         for strategy in self._lst_strategies:
-            strategy.calculate_signals(event)
+            strategy.calculate_signals(event) 

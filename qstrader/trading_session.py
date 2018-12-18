@@ -31,6 +31,8 @@ class TradingSession(object):
         Set up the backtest variables according to
         what has been passed in.
         """
+
+        #self.end_session_time = end_session_time
         self.config = config
         self.strategy = strategy
         self.tickers = tickers
@@ -61,6 +63,7 @@ class TradingSession(object):
         Initialises the necessary classes used
         within the session.
         """
+
         if self.price_handler is None and self.session_type == "backtest":
             self.price_handler = YahooDailyCsvBarPriceHandler(
                 self.config.CSV_DATA_DIR, self.events_queue,

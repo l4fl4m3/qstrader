@@ -47,13 +47,25 @@ class YahooDailyCsvBarPriceHandler(AbstractBarPriceHandler):
         them into a pandas DataFrame, stored in a dictionary.
         """
         ticker_path = os.path.join(self.csv_dir, "%s.csv" % ticker)
+        '''
         self.tickers_data[ticker] = pd.io.parsers.read_csv(
             ticker_path, header=0, parse_dates=True,
-            index_col=0, names=(
-                "Date", "Open", "High", "Low",
-                "Close", "Volume", "Adj Close"
-            )
+            index_col=0, names=("Date","Close","High","Low", "Open", "Volume", "Adj Close"),
+            usecols=("Date","Close","High","Low", "Open", "Volume", "Adj Close")
+
         )
+        '''
+        # Redid method for new Nasdaq CSVs
+        self.tickers_data[ticker] = pd.io.parsers.read_csv(
+            ticker_path, header=0, parse_dates=True,
+            index_col=0, usecols=("date","close","high","low", "open", "volume", "adjClose")
+
+        )
+        #print(self.tickers_data[ticker])
+        self.tickers_data[ticker].rename(columns={'close': 'Close','high': 'High', 'low': 'Low',
+                           'open': 'Open','volume': 'Volume','adjClose': 'Adj Close'}, inplace=True)
+
+        #print(self.tickers_data[ticker])
         self.tickers_data[ticker]["Ticker"] = ticker
 
     def _merge_sort_ticker_data(self):
@@ -91,6 +103,7 @@ class YahooDailyCsvBarPriceHandler(AbstractBarPriceHandler):
         Subscribes the price handler to a new ticker symbol.
         """
         if ticker not in self.tickers:
+
             try:
                 self._open_ticker_price_csv(ticker)
                 dft = self.tickers_data[ticker]
@@ -110,11 +123,13 @@ class YahooDailyCsvBarPriceHandler(AbstractBarPriceHandler):
                     "Could not subscribe ticker %s "
                     "as no data CSV found for pricing." % ticker
                 )
+
         else:
             print(
                 "Could not subscribe ticker %s "
                 "as is already subscribed." % ticker
             )
+
 
     def _create_event(self, index, period, ticker, row):
         """

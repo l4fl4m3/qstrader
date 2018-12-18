@@ -62,7 +62,9 @@ class IBSimulatedExecutionHandler(AbstractExecutionHandler):
                     fill_price = ask
                 else:
                     fill_price = bid
+
             else:
+
                 close_price = self.price_handler.get_last_close(ticker)
                 fill_price = close_price
 

@@ -66,9 +66,11 @@ class TearsheetStatistics(AbstractStatistics):
         """
         # Equity
         equity_s = pd.Series(self.equity).sort_index()
+        #print(equity_s)
 
         # Returns
         returns_s = equity_s.pct_change().fillna(0.0)
+        #print( returns_s)
 
         # Rolling Annualised Sharpe
         rolling = returns_s.rolling(window=self.periods)
@@ -635,7 +637,10 @@ class TearsheetStatistics(AbstractStatistics):
 
         # Plot the figure
         plt.show(block=False)
-
+        now = datetime.utcnow()
+        filename = "tearsheet_" + now.strftime("%Y-%m-%d_%H%M%S") + ".png"
+        filename = os.path.expanduser(os.path.join(self.config.OUTPUT_DIR, filename))
+        fig.savefig(filename, dpi=150, bbox_inches='tight')
         if filename is not None:
             fig.savefig(filename, dpi=150, bbox_inches='tight')
 
